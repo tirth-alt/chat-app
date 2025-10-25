@@ -42,7 +42,9 @@ const AuthForm: React.FC<AuthFormProps> = ({ onAuthSuccess, onSwitchMode, isLogi
         ? { email: formData.email, password: formData.password }
         : { username: formData.username, email: formData.email, password: formData.password };
 
-      const response = await axios.post(`http://localhost:5000${endpoint}`, payload);
+        const BACKEND_URL = 'https://chat-app-zfue.onrender.com';
+        const response = await axios.post(`${BACKEND_URL}${endpoint}`, payload);
+        
       
       onAuthSuccess(response.data.token, response.data.user);
     } catch (error: any) {

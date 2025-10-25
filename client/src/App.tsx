@@ -43,14 +43,19 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (isAuthenticated && user) {
-      const newSocket = io('http://localhost:5000');
+      const BACKEND_URL = 'https://chat-app-zfue.onrender.com';
+
+      const newSocket = io(BACKEND_URL, {
+        transports: ['websocket'], // optional but helps on Render
+      });
+      
       setSocket(newSocket);
 
       // Set up axios default header
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
       // Load existing messages
-      axios.get('http://localhost:5000/api/messages')
+      axios.get(`${BACKEND_URL}/api/messages`)
         .then(response => {
           setMessages(response.data);
         })
